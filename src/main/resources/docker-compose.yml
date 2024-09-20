@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres-sistema:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: sistema-db
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_sistema_data:/var/lib/postgresql/data
+    networks:
+      - saude-network
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: saude-conectada
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - saude-network
+
+  eureka:
+    image: springcloud/eureka:latest
+    ports:
+      - "8761:8761"
+    networks:
+      - saude-network
+    environment:
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+      EUREKA_CLIENT_FETCH_REGISTRY: "false"
+
+networks:
+  saude-network:
+
+volumes:
+  postgres_sistema_data:
+  postgres_data:
