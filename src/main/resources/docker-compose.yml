@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: sistema-db
+      POSTGRES_DB: ms-sistema-db
     ports:
       - "5436:5432"
     volumes:
@@ -15,33 +15,31 @@ services:
     networks:
       - saude-network
 
-  postgres:
+  postgres-cliente:
     image: postgres:latest
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: saude-conectada
+      POSTGRES_DB: ms-cliente-db
     ports:
       - "5435:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_cliente_data:/var/lib/postgresql/data
     networks:
       - saude-network
 
-  eureka:
-    image: springcloud/eureka:latest
+  rabbitmq:
+    image: rabbitmq:management
     ports:
-      - "8761:8761"
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - saude-network
-    environment:
-      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
-      EUREKA_CLIENT_FETCH_REGISTRY: "false"
 
 networks:
   saude-network:
 
 volumes:
   postgres_sistema_data:
-  postgres_data:
+  postgres_cliente_data:

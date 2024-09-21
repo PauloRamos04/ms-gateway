@@ -30,7 +30,7 @@ dependencies {
 
 	// Dependências do Spring Cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp' // Adicione esta linha
 
 	// Dependências de teste
 	testImplementation 'com.h2database:h2'
